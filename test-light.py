@@ -4,8 +4,13 @@ import board
 import neopixel
 import time
 import random
-num_lights = 50
-#num_lights = int(sys.argv[1])
+
+if len(sys.argv) > 1:
+    num_lights = int(sys.argv[1])
+else:
+    num_lights = 50
+print(f'num_lights is {num_lights}')
+
 seg_length = 10
 
 # transform between RGB color and GBR
