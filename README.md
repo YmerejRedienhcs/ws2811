@@ -10,10 +10,9 @@ useful link for installing python libraries: https://opensource.com/article/21/1
 sudo apt-get install python3-pip
 Then install the following libraries:
 
-rpi_ws281x
-Adafruit-circuitpython-neopixel
-Adafruit-blinka
-
+  - rpi_ws281x: `sudo pip3 install rpi_ws281x`
+  - Adafruit-circuitpython-neopixel: `sudo pip3 install Adafruit-circuitpython-neopixel`
+  - Adafruit-blinka: `sudo pip3 install Adafruit-blinka`
 
 note not all node versions work on RPi Zero.
 
