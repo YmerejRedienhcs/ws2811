@@ -59,10 +59,10 @@ async def blinks(which):
     while (True):
         # await blink(which[count])
         r = random.randint(0, len(which) - 1)
-        print(f'r is: {r}')
+        print(f'blinks: r is: {r}')
         await blink(which[r])
         count = (count + 1) % len(which)
-        await asyncio.sleep(0.05)
+        await asyncio.sleep(1)
 
 async def fade(n):
     # c = str[n]
@@ -71,7 +71,10 @@ async def fade(n):
 async def fades(which):
     count = 0
     while (True):
-        await fade(which[count])
+        r = random.randint(0, len(which) - 1)
+        print(f'fades: r is: {r}')
+        # await fade(which[count])
+        await fade(which[r])
         count = (count + 1) % len(which)
         await asyncio.sleep(1)
         
@@ -183,7 +186,7 @@ l = []
 for i in range(int(num_lights/2)):
     l.append(2*i+1)
 #loop.create_task(fades([0,2,4]))
-#loop.create_task(fades(l))
+loop.create_task(fades(l))
 
 loop.run_forever()
 loop.close()
