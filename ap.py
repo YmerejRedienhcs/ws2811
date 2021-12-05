@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import asyncio
 import time
 import random
