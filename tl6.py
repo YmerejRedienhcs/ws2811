@@ -4,7 +4,7 @@ import board
 import neopixel
 import time
 import random
-num_lights = 250
+num_lights = 200
 #num_lights = int(sys.argv[1])
 seg_length = 100
 black = (0, 0, 0)
@@ -12,9 +12,6 @@ white = (255, 255, 255)
 
 def sleep(seconds):
     time.sleep(seconds)
-
-print('hello jeremy')
-sleep(10)
 
 # program 50 lights with the default brightness 1.0, and autoWrite true
 #pixels = neopixel.NeoPixel(board.D18, num_lights)
