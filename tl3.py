@@ -33,9 +33,9 @@ def randomColor(x):
     return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
     # return colors[random.randint(4,6)]
 
-for x in range(1000):
-    pixels.fill((255,0,0))
-    pixels.fill((0,255,0))
+#for x in range(1000):
+#    pixels.fill((255,0,0))
+#    pixels.fill((0,255,0))
 
 delay = 0.035
 while True:
