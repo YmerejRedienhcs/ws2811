@@ -48,10 +48,10 @@ delay = 0.035
 #    
 #    time.sleep(1)
 
+pixels.fill((0,0,0))
 
 while True:
     x = random.randint(0, num_lights-1)
     pixels[x] = randomColor(x)
 
-pixels.fill((0,0,0))
 
