@@ -37,7 +37,6 @@ async def slowOn(x):
        #print(f'c2 is {c2}')
        await asyncio.sleep(delay * (1-pc))
        pixels[x] = c2
-
    str[x] = c2
 
 
@@ -49,7 +48,7 @@ async def blink(n):
     c = str[n]
     str[n] = black
     pixels[n] = black
-    await asyncio.sleep(0.05)
+    await asyncio.sleep(0.25) # was .05
     str[n] = c
     pixels[n] = c
     
@@ -62,7 +61,7 @@ async def blinks(which):
         print(f'blinks: r is: {r}')
         await blink(which[r])
         count = (count + 1) % len(which)
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.15) # was 1
 
 async def fade(n):
     # c = str[n]
