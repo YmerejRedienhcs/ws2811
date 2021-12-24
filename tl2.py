@@ -27,7 +27,7 @@ colors = [
     (255, 255, 000),
     (255, 255, 255)]
 def randomColor(x):
-    return white
+    #return white
     if (x % 2 == 0):
         return colors[random.randint(4,6)]
         #return black
