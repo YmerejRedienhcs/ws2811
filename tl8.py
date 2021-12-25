@@ -10,7 +10,7 @@ if len(sys.argv) > 1:
     num_lights = int(sys.argv[1])
 else:
     num_lights = 50
-print(f'num_lights is {num_lights}')
+print(f'num_lights is: {num_lights}')
 
 seg_length = 10
 
@@ -48,7 +48,7 @@ async def blink(n):
     c = str[n]
     str[n] = black
     pixels[n] = black
-    await asyncio.sleep(0.25) # was .05
+    await asyncio.sleep(0.05)
     str[n] = c
     pixels[n] = c
     
@@ -61,7 +61,7 @@ async def blinks(which):
         print(f'blinks: r is: {r}')
         await blink(which[r])
         count = (count + 1) % len(which)
-        await asyncio.sleep(0.15) # was 1
+        await asyncio.sleep(1)
 
 async def fade(n):
     # c = str[n]
@@ -185,6 +185,7 @@ l = []
 for i in range(int(num_lights/2)):
     l.append(2*i+1)
 #loop.create_task(fades([0,2,4]))
+print(l)
 loop.create_task(fades(l))
 
 loop.run_forever()
