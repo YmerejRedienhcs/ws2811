@@ -6,6 +6,8 @@ import time
 import random
 import asyncio
 
+debug = False
+
 if len(sys.argv) > 1:
     num_lights = int(sys.argv[1])
 else:
@@ -25,57 +27,69 @@ white = (255, 255, 255)
 def sleep(seconds):
     time.sleep(seconds)
 
-async def slowOn(x):
-   c = randomColor(x)
-   delay = .020
-   for y in range(256):
-       #print(f'y is {y}')
-       pc = float(y+1) / 256.0
-       #print(f'pc is {pc}')
-       #c2 = (int(pc * c[0]), int(pc * c[1]), int(pc * c[2]))
-       c2 = (pc * c[0], pc * c[1], pc * c[2])
-       #print(f'c2 is {c2}')
-       await asyncio.sleep(delay * (1-pc))
-       pixels[x] = c2
-   str[x] = c2
+def blend(c1, c2, c2_percent):
+    c1_percent = 1.0 - c2_percent
+    return (c1[0]*c1_percent + c2[0]*c2_percent, 
+            c1[1]*c1_percent + c2[1]*c2_percent, 
+            c1[2]*c1_percent + c2[2]*c2_percent)
+
+async def slow_on(x, steps, delay):
+    # print(f'slow_on: x is {x}')
+    # print(f'slow_on: steps is {steps}')
+    # print(f'slow_on: delay is {delay}')
+    initial_color = str[x]
+    # print(f'slow_on: initial_color is {initial_color}')
+    while True:
+        final_color = randomColor(x)
+        # print(f'slow_on: final_color is {final_color}')
+        if final_color != initial_color:
+            break
+    
+    for y in range(steps):
+        # print(f'slow_on: y is {y}')
+        percent = float(y+1) / float(steps)
+        # print(f'slow_on: percent is {percent}')
+        intermediate_color = blend(initial_color, final_color, percent)
+        # print(f'slow_on: intermediate_color is {intermediate_color}')
+        if delay > 0:
+            await asyncio.sleep(delay * (1-percent))
+        pixels[x] = intermediate_color
+    str[x] = final_color
+    #exit()
 
 
-def setLights(str):
+def set_lights(str):
   for n in range(len(str)):
     pixels[n] = str[n]
 
-async def blink(n):
+async def blink(n, time_off):
     c = str[n]
     str[n] = black
     pixels[n] = black
-    await asyncio.sleep(0.25) # was .05
+    await asyncio.sleep(time_off)
     str[n] = c
     pixels[n] = c
     
-async def blinks(which):
+async def blinks(which, delay_between_blinks, time_off):
     print(f'len(which) is: {len(which)}')
-    count = 0
     while (True):
-        # await blink(which[count])
         r = random.randint(0, len(which) - 1)
         print(f'blinks: r is: {r}')
-        await blink(which[r])
-        count = (count + 1) % len(which)
-        await asyncio.sleep(0.15) # was 1
+        await blink(which[r], time_off=0.25)
+        if delay_between_blinks > 0:
+            await asyncio.sleep(delay_between_blinks)
 
 async def fade(n):
     # c = str[n]
-    await slowOn(n)
+    await slow_on(n, steps=50, delay=0.04)
 
-async def fades(which):
-    count = 0
+async def fades(which, delay):
     while (True):
         r = random.randint(0, len(which) - 1)
         print(f'fades: r is: {r}')
-        # await fade(which[count])
         await fade(which[r])
-        count = (count + 1) % len(which)
-        await asyncio.sleep(1)
+        if (delay > 0):
+            await asyncio.sleep(delay)
         
 # program 50 lights with the default brightness 1.0, and autoWrite true
 #pixels = neopixel.NeoPixel(board.D18, num_lights)
@@ -171,43 +185,46 @@ for n in range(num_lights):
   print(f'rc is: {rc}')
   str.append(rc)
 
-setLights(str)
+set_lights(str)
 
 loop = asyncio.get_event_loop()
 
+# make task for blinks
 l = []
 for i in range(int(num_lights/2)):
     l.append(2*i)
-# loop.create_task(blinks([1,3,5]))
-print(l)
-loop.create_task(blinks(l))
+# loop.create_task(blinks([1,3,5])) # a test one blinking just the 2nd, 4th, and 6th 
+print(f'l for blinks is: {l}')
+loop.create_task(blinks(l, delay_between_blinks=0.1, time_off=0.25))
+
+# make task for fades
 l = []
 for i in range(int(num_lights/2)):
     l.append(2*i+1)
-#loop.create_task(fades([0,2,4]))
+#loop.create_task(fades([0,2,4])) # a test one fading just the 1st, 3rd, and 5th 
 print(l)
-loop.create_task(fades(l))
+loop.create_task(fades(l, delay=0.1))
 
 loop.run_forever()
 loop.close()
 
 
-for n in range(100):
-  r = random.randint(0,len(str)-1)
-  slowOn(r)
-pixels.fill(black)
+#for n in range(100):
+#  r = random.randint(0,len(str)-1)
+#  slow_on(r)
+#pixels.fill(black)
 
-delay = 0.04
-while True:
-    for x in range(num_lights+seg_length):
-        # print(f'setting light {x} to a color')
-        if (x < num_lights):
-            pixels[x] = randomColor(x)
-        # print(f'x is {x}')
-        if ((x >= num_lights) or (x >= seg_length)):
-            # print(f'setting light {x-seg_length} to black')
-            pixels[x-seg_length] = black
-        sleep(delay)
-    
-    sleep(1)
-    pixels.fill((0,0,0))
+#delay = 0.04
+#while True:
+#    for x in range(num_lights+seg_length):
+#        # print(f'setting light {x} to a color')
+#        if (x < num_lights):
+#            pixels[x] = randomColor(x)
+#        # print(f'x is {x}')
+#        if ((x >= num_lights) or (x >= seg_length)):
+#            # print(f'setting light {x-seg_length} to black')
+#            pixels[x-seg_length] = black
+#        sleep(delay)
+#    
+#    sleep(1)
+#    pixels.fill((0,0,0))

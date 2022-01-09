@@ -26,15 +26,17 @@ def sleep(seconds):
 
 def slowOn(x):
    c = randomColor(x)
-   delay = .020
-   for y in range(256):
+   delay = .005
+   #for y in range(256):
+   #for y in range(128):
+   for y in range(64):
        #print(f'y is {y}')
-       pc = float(y+1) / 256.0
+       pc = float((y*4)+1) / 256.0
        #print(f'pc is {pc}')
        #c2 = (int(pc * c[0]), int(pc * c[1]), int(pc * c[2]))
        c2 = (pc * c[0], pc * c[1], pc * c[2])
        #print(f'c2 is {c2}')
-       time.sleep(delay * (1-pc))
+       #time.sleep(delay * (1-pc))
        pixels[x] = c2
 
 def setLights(str):
@@ -126,20 +128,22 @@ def randomColor(x):
 #    pixels.fill(randomColor(x))
 #    sleep(.010)
 
-str = []
-print(type(str))
-for n in range(num_lights):
-  print(f'n is: {n}')
-  rc = randomColor(n)
-  print(f'rc is: {rc}')
-  str.append(rc)
+while True:
+    str = []
+    print(type(str))
+    for n in range(num_lights):
+        print(f'n is: {n}')
+        rc = randomColor(n)
+        print(f'rc is: {rc}')
+        str.append(rc)
+    
+    setLights(str)
+    for n in range(100):
+        r = random.randint(0,len(str)-1)
+        slowOn(r)
+    pixels.fill(black)
 
-setLights(str)
-for n in range(100):
-  r = random.randint(0,len(str)-1)
-  slowOn(r)
-pixels.fill(black)
-
+# not reached
 delay = 0.04
 while True:
     for x in range(num_lights+seg_length):

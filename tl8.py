@@ -10,7 +10,7 @@ if len(sys.argv) > 1:
     num_lights = int(sys.argv[1])
 else:
     num_lights = 50
-print(f'num_lights is {num_lights}')
+print(f'num_lights is: {num_lights}')
 
 seg_length = 10
 
@@ -37,7 +37,6 @@ async def slowOn(x):
        #print(f'c2 is {c2}')
        await asyncio.sleep(delay * (1-pc))
        pixels[x] = c2
-
    str[x] = c2
 
 
@@ -186,6 +185,7 @@ l = []
 for i in range(int(num_lights/2)):
     l.append(2*i+1)
 #loop.create_task(fades([0,2,4]))
+print(l)
 loop.create_task(fades(l))
 
 loop.run_forever()
