@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#sudo ~jeremy/ws2811/off.py
+#sudo ~jeremy/ws2811/tl4.py 200
+
+NPROGS=10 # number of programs we choose from
+NLIGHTS=200
+CURRENT_PROG_FILE=/tmp/current_christmas_tree_program_number
+
+# blank the lights
+sudo ~jeremy/ws2811/off.py
+
+# Randomly start a program that is different
+# from the current program.
+current=`cat $CURRENT_PROG_FILE 2> /dev/null || echo '0'`
+# echo "current is: $current"
+until
+  rprogno=$((1 + $RANDOM % $NPROGS))
+  # echo "rprogno is $rprogno"
+  [[ $current != $rprogno ]]
+do true; done
+
+# Record what program we're going to run now, so that we can
+# choose a different one next time we run this.
+echo $rprogno > $CURRENT_PROG_FILE
+
+# Run the program
+sudo ~jeremy/ws2811/tl${rprogno}.py $NLIGHTS

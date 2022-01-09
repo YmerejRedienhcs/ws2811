@@ -17,3 +17,38 @@ Then install the following libraries:
 note not all node versions work on RPi Zero.
 
 other good stuff https://github.com/Ziagl/raspberry-pi-ws2811
+
+# SERVICE
+
+References:  
+
+https://www.raspberrypi.com/documentation/computers/using_linux.html#creating-a-service
+Creating a service in https://domoticproject.com/creating-raspberry-pi-service/
+man 5 systemd.service
+https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
+
+The file xmastreelights.service defines the service.
+
+To install the service:
+  sudo cp xmastreelights.service /etc/systemd/system/
+  sudo systemctl daemon-reload
+
+To start the service: 
+
+  sudo systemctl start xmastreelights.service
+
+To stop the service: 
+
+  sudo systemctl stop xmastreelights.service
+
+To restart the service: 
+
+  sudo systemctl restart xmastreelights.service
+
+Add the following to root's crontab with `sudo crontab -e`:
+```
+# Restart the Christmas tree light service every five minutes.
+# Each time it restarts, it chooses a different program to run.
+*/5 * * * * systemctl restart xmastreelights.service
+```
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=Xmas Tree Lights
+After=network.target
+
+[Service]
+ExecStart=/home/jeremy/ws2811/startxmastreelights
+WorkingDirectory=/home/jeremy/ws2811
+StandardOutput=inherit
+StandardError=inherit
+Restart=no
+User=jeremy
+
+[Install]
+WantedBy=multi-user.target
