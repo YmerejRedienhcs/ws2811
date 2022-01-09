@@ -7,7 +7,7 @@ useful link for circuit: https://raspberrypi.stackexchange.com/questions/120494/
 
 useful link for installing python libraries: https://opensource.com/article/21/1/light-display-raspberry-pi
 
-sudo apt-get install python3-pip
+`sudo apt-get install python3-pip`
 Then install the following libraries:
 
   - rpi_ws281x: `sudo pip3 install rpi_ws281x`
@@ -24,26 +24,28 @@ References:
 
 https://www.raspberrypi.com/documentation/computers/using_linux.html#creating-a-service
 Creating a service in https://domoticproject.com/creating-raspberry-pi-service/
-man 5 systemd.service
+`man 5 systemd.service`
 https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
 
 The file xmastreelights.service defines the service.
 
 To install the service:
+```
   sudo cp xmastreelights.service /etc/systemd/system/
   sudo systemctl daemon-reload
+```
 
 To start the service: 
 
-  sudo systemctl start xmastreelights.service
+  `sudo systemctl start xmastreelights.service`
 
 To stop the service: 
 
-  sudo systemctl stop xmastreelights.service
+  `sudo systemctl stop xmastreelights.service`
 
 To restart the service: 
 
-  sudo systemctl restart xmastreelights.service
+  ~sudo systemctl restart xmastreelights.service`
 
 Add the following to root's crontab with `sudo crontab -e`:
 ```
