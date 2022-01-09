@@ -45,7 +45,7 @@ To stop the service:
 
 To restart the service: 
 
-  ~sudo systemctl restart xmastreelights.service`
+  `sudo systemctl restart xmastreelights.service`
 
 Add the following to root's crontab with `sudo crontab -e`:
 ```
