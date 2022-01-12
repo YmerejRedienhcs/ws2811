@@ -2,9 +2,9 @@
 #sudo ~jeremy/ws2811/off.py
 #sudo ~jeremy/ws2811/tl4.py 200
 
-# Program names are tl2.py through tl10.py
-# so they start with 2 and go through 10.
-NPROGS=9 # number of programs we choose from
+# Program names are tl2.py through tl11.py
+# so they start with 2 and go through 11.
+NPROGS=10 # number of programs we choose from
 NSTART=2
 
 NLIGHTS=200
