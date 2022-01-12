@@ -195,11 +195,14 @@ def blend_str(percent, s1, s2):
   #print(f'blend_str: percent is {percent}')
   #print(f'blend_str: s1 is: {s1}')
   #print(f'blend_str: s2 is: {s2}')
-  bs = []
+  #bs = []
   for n in range(num_lights):
-    bs.append(blend(s1[n], s2[n], percent))
+    c = blend(s1[n], s2[n], percent)
+    #bs.append(c)
+    #bs.append(blend(s1[n], s2[n], percent))
+    pixels[n] = c
   #print(f'blend_str: about to return: {bs}')
-  return bs
+  #return bs
 
 rs1 = make_rand_str()
 #print(f'rs1 is {rs1}')
@@ -208,11 +211,11 @@ rs2 = make_rand_str()
 
 while True:
   print ('hey')
-  steps = 10
+  steps = 5
   for n in range(steps+1):
     #print(f'n is {n}')
     percent = n / steps
-    #print(f'percent is {percent}')
+    print(f'percent is {percent}')
     #bs = blend_str(percent, rs1, rs2)
     #print('')
     #print('')
@@ -220,7 +223,8 @@ while True:
     #print('')
     #print(f'bs is {bs}')
     
-    set_lights(blend_str(percent, rs1, rs2))
+    #set_lights(blend_str(percent, rs1, rs2))
+    blend_str(percent, rs1, rs2)
     #set_lights(bs)
 
   for n in range(num_lights):
