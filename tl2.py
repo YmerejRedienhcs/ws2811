@@ -4,8 +4,11 @@ import board
 import neopixel
 import time
 import random
-num_lights = 150
-num_lights = int(sys.argv[1])
+if len(sys.argv) > 1:
+    num_lights = int(sys.argv[1])
+else:
+    num_lights = 50
+print(f'num_lights is {num_lights}')
 seg_length = 15
 black = (0, 0, 0)
 white = (255, 255, 255)

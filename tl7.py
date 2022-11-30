@@ -31,7 +31,7 @@ def slowOn(x):
    #for y in range(128):
    for y in range(64):
        #print(f'y is {y}')
-       pc = float((y*4)+1) / 256.0
+       pc = float((y*4)+1) / 64.0
        #print(f'pc is {pc}')
        #c2 = (int(pc * c[0]), int(pc * c[1]), int(pc * c[2]))
        c2 = (pc * c[0], pc * c[1], pc * c[2])
