@@ -7,7 +7,8 @@
 NPROGS=10 # number of programs we choose from
 NSTART=2
 
-NLIGHTS=200
+NLIGHTS=50
+NLIGHTS=250
 CURRENT_PROG_FILE=/tmp/current_christmas_tree_program_number
 
 # blank the lights
