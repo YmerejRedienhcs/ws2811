@@ -201,17 +201,14 @@ colors = [
     lightblue,
     purple,
     lightgreen,
-    pink,
-    yellow
+    pink
 ]
 
 def randomColor(x):
-    #return (colors[0])
-#    r = random.randint(0,4)
-#    l = len(colors)
-    r = random.randint(0,3)
-    #print (f'r is: {r}')
-    return colors[r] # "valentines day colors"
+    l = len(colors)
+    r = random.randint(0,l-1)
+    print (f'r is: {r}')
+    return colors[r]
 
     #not reached at the moment
     if (x % 2 == 0):
