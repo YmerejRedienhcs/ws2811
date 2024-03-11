@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sudo ./off.py 100
