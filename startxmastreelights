@@ -9,8 +9,6 @@ NSTART=2
 
 NLIGHTS=50
 NLIGHTS=250
-NLIGHTS=300
-NLIGHTS=100
 CURRENT_PROG_FILE=/tmp/current_christmas_tree_program_number
 
 # blank the lights
@@ -23,13 +21,8 @@ current=`cat $CURRENT_PROG_FILE 2> /dev/null || echo '0'`
 until
   rprogno=$(( $RANDOM % $NPROGS + $NSTART))
   # echo "rprogno is $rprogno"
-  [[ $rprogno != 9 && $rprogno != 11 && $rprogno != 6 && $current != $rprogno ]]
+  [[ $current != $rprogno ]]
 do true; done
-
-rprogno=10
-rprogno=12 # Valentine's Day
-rprogno=13 # President's Day
-rprogno=14 # Easter
 
 # Record what program we're going to run now, so that we can
 # choose a different one next time we run this.
