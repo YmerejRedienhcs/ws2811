@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# Halloween
+
 import sys
 import board
 import neopixel
@@ -136,10 +139,12 @@ cyan    = t((  0, 255, 255))
 yellow  = t((195, 195, 000))
 white   = t((255, 255, 255))
 purple  = t((75, 0, 130))
+darkpurple  = t((52, 21, 57))
 pink    = t((255, 220, 220))
 lightblue = t((25, 25, 255))
 lightgreen = t((120, 255, 120))
-orange = t((255, 165, 0))
+# orange = t((255, 165, 0))
+orange = t((255, 87, 51))
 
 str = []
 
@@ -219,16 +224,18 @@ colors = [
     orange,
     orange,
     orange,
+    orange,
+    orange,
     white,
     black,
     purple,
+    darkpurple,
     yellow,
     orange,
     orange,
     orange,
     white,
     black,
-    yellow,
 ]
 
 def randomColor(x):
