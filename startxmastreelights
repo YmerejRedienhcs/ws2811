@@ -26,6 +26,9 @@ do true; done
 
 # Record what program we're going to run now, so that we can
 # choose a different one next time we run this.
+rprogno=14
+rprogno=15
+rprogno=16
 echo $rprogno > $CURRENT_PROG_FILE
 
 # Run the program
