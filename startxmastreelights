@@ -29,6 +29,7 @@ do true; done
 rprogno=14
 rprogno=15
 rprogno=16
+rprogno=0
 echo $rprogno > $CURRENT_PROG_FILE
 
 # Run the program
