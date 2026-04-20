@@ -1,20 +1,33 @@
 #!/usr/bin/env python3
 
 import sys
+import argparse
 import board
 import neopixel
 import time
 import random
 import asyncio
+#import subprocess
 from datetime import date, timedelta
 
 debug = False
 
-if len(sys.argv) > 1:
-    num_lights = int(sys.argv[1])
-else:
-    num_lights = 50
+parser = argparse.ArgumentParser()
+parser.add_argument('num_lights', nargs='?', type=int, default=50)
+parser.add_argument(
+    '--holiday',
+    dest='holiday_name',
+    metavar='HOLIDAY',
+    help='Override automatic date selection and use the named holiday palette.',
+)
+args = parser.parse_args()
+
+num_lights = args.num_lights
+holiday_name_override = args.holiday_name
+#num_lights = 100
 print(f'num_lights is: {num_lights}')
+
+#subprocess.run(f'echo {num_lights} >> /tmp/numlights', shell=True, check=True)
 
 seg_length = 10
 
@@ -360,6 +373,30 @@ def holiday_lead_days(holiday):
     return holiday.get('lead_days', DEFAULT_LEAD_DAYS)
 
 
+def normalize_holiday_name(name):
+    return ''.join(ch for ch in name.lower() if ch.isalnum())
+
+
+def holiday_name_aliases(holiday):
+    normalized_name = normalize_holiday_name(holiday['name'])
+    aliases = {normalized_name}
+    if normalized_name.endswith('day'):
+        aliases.add(normalized_name[:-3])
+    return aliases
+
+
+def find_holiday_by_name(name):
+    normalized_query = normalize_holiday_name(name)
+    for holiday in HOLIDAYS:
+        if normalized_query in holiday_name_aliases(holiday):
+            return holiday
+
+    available_holidays = ', '.join(holiday['name'] for holiday in HOLIDAYS)
+    raise ValueError(
+        f"Unknown holiday: {name!r}. Available holidays: {available_holidays}"
+    )
+
+
 def active_holiday(today=None):
     if today is None:
         today = date.today()
@@ -391,11 +428,20 @@ def active_holiday(today=None):
     return active
 
 
-start_date, holiday_date_value, lead_days_value, holiday_name, colors = active_holiday()
-print(
-    f"Using {holiday_name} colors "
-    f"(starts {start_date}, holiday {holiday_date_value}, lead_days {lead_days_value})"
-)
+if holiday_name_override:
+    selected_holiday = find_holiday_by_name(holiday_name_override)
+    holiday_name = selected_holiday['name']
+    colors = PALETTES[selected_holiday['palette']]
+    print(
+        f"Using {holiday_name} colors "
+        f"(--holiday override: {holiday_name_override!r})"
+    )
+else:
+    start_date, holiday_date_value, lead_days_value, holiday_name, colors = active_holiday()
+    print(
+        f"Using {holiday_name} colors "
+        f"(starts {start_date}, holiday {holiday_date_value}, lead_days {lead_days_value})"
+    )
 
 
 def randomColor(x):

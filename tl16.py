@@ -16,6 +16,7 @@ if len(sys.argv) > 1:
 else:
     num_lights = 50
 print(f'num_lights is: {num_lights}')
+#num_lights = 50
 
 seg_length = 10
 
@@ -227,7 +228,6 @@ colors = [
     orange,
     orange,
     white,
-    black,
     purple,
     darkpurple,
     yellow,
@@ -236,6 +236,22 @@ colors = [
     orange,
     white,
     black,
+]
+
+colors = [
+    orange,
+    orange,
+    orange,
+    orange,
+    orange,
+    white,
+    purple,
+    darkpurple,
+    yellow,
+    orange,
+    orange,
+    orange,
+    white,
 ]
 
 def randomColor(x):
